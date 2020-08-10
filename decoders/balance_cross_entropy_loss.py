@@ -21,10 +21,11 @@ class BalanceCrossEntropyLoss(nn.Module):
         >>> output.backward()
     '''
 
-    def __init__(self, negative_ratio=3.0, eps=1e-6):
+    def __init__(self, negative_ratio=100.0, eps=1e-6):
         super(BalanceCrossEntropyLoss, self).__init__()
         self.negative_ratio = negative_ratio
         self.eps = eps
+        print(">>>>>>> negative_ratio: ", negative_ratio)
 
     def forward(self,
                 pred: torch.Tensor,

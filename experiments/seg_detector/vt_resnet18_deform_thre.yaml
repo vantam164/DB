@@ -10,11 +10,11 @@ define:
             class: Builder
             model: SegDetectorModel
             model_args:
-                backbone: deformable_resnet50
+                backbone: deformable_resnet18
                 decoder: SegDetector
                 decoder_args: 
                     adaptive: True
-                    in_channels: [256, 512, 1024, 2048]
+                    in_channels: [64, 128, 256, 512]
                     k: 50
                 loss_class: L1BalanceCELoss
         representer:
@@ -29,8 +29,8 @@ define:
         data_loader: 
             class: DataLoader
             dataset: ^train_data
-            batch_size: 10
-            num_workers: 2
+            batch_size: 16
+            num_workers: 4
         checkpoint: 
             class: Checkpoint
             start_epoch: 0
@@ -39,7 +39,7 @@ define:
         model_saver: 
             class: ModelSaver
             dir_path: model
-            save_interval: 2000
+            save_interval: 1000
             signal_path: save
         scheduler: 
             class: OptimizerScheduler
@@ -60,7 +60,7 @@ define:
                 class: DataLoader
                 dataset: ^validate_data
                 batch_size: 1
-                num_workers: 0
+                num_workers: 4
                 collect_fn:
                     class: ICDARCollectFN
         visualize: false
